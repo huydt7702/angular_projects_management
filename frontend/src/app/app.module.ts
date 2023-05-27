@@ -11,6 +11,7 @@ import { EmployeeAddComponent } from './components/employee-add/employee-add.com
 import { RestApiService } from './services/rest-api.service';
 import { DataService } from './services/data.service';
 import { HomeComponent } from './components/home/home.component';
+import { EmployeeListComponent } from './components/employee-list/employee-list.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { HomeComponent } from './components/home/home.component';
     MessageComponent,
     EmployeeAddComponent,
     HomeComponent,
+    EmployeeListComponent,
   ],
   imports: [
     BrowserModule,
