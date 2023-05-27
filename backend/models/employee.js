@@ -8,7 +8,7 @@ const EmployeeSchema = new Schema(
         password: String,
         email: { type: String, unique: true },
         zone: String,
-        role: Number,
+        role: { type: String, default: "Employee" },
         image: String,
         phone: String,
         enrollDate: { type: Date, default: Date.now },
