@@ -29,8 +29,17 @@
                 <td>{{ item.role }}</td>
                 <td>
                   View
-                  <a [routerLink]="['/employee-edit/' + item._id]">Edit</a>
-                  Delete
+                  <a
+                    class="btn btn-outline-warning ml-2"
+                    [routerLink]="['/employee-edit/' + item._id]"
+                  >
+                    <i class="fas fa-edit"></i>
+                  </a>
+                  <span
+                    class="btn btn-outline-danger ml-2"
+                    (click)="delete(item._id)"
+                    ><i class="fas fa-trash"></i
+                  ></span>
                 </td>
               </tr>
             </tbody>

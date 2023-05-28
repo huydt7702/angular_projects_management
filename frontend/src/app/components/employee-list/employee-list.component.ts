@@ -29,5 +29,18 @@ export class EmployeeListComponent implements OnInit {
       });
   }
 
-  delete() {}
+  delete(id: string) {
+    this.rest
+      .delete(this.url, id)
+      .then((data) => {
+        this.data.success((data as { message: string }).message);
+        this.btnDisabled = false;
+
+        this.ngOnInit();
+      })
+      .catch((error) => {
+        this.data.error(error['message']);
+        this.btnDisabled = false;
+      });
+  }
 }
