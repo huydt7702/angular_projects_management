@@ -1,4 +1,4 @@
-# Cách chạy web lên browser
+# Cách chạy web lên browser (web đang trong quá trình phát triển)
 
 ### B1: Kéo node_modules 2 thư mục backend và frontend về
 
