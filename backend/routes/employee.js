@@ -54,4 +54,64 @@ router.get("/", async (req, res, next) => {
     });
 });
 
+router.get("/:id", async (req, res, next) => {
+    const employee = await Employee.findById(req.params.id).select("-password");
+
+    if (!employee) {
+        return res.status(500).json({
+            success: false,
+            message: "No employee existed",
+        });
+    }
+
+    res.json({
+        success: true,
+        employee: employee,
+    });
+});
+
+router.put("/:id", async (req, res, next) => {
+    const employeeExist = await Employee.findById(req.params.id);
+
+    if (!employeeExist) {
+        return res.status(500).json({
+            success: false,
+            message: "No employee existed",
+        });
+    }
+
+    let newPassword = req.body.password ? bcrypt.hashSync(req.body.password) : employeeExist.password;
+
+    let employee = {
+        name: req.body.name,
+        email: req.body.email,
+        password: newPassword,
+        zone: req.body.zone,
+        role: req.body.role,
+        phone: req.body.phone,
+        status: req.body.status,
+    };
+    try {
+        const emp = await Employee.findByIdAndUpdate(req.params.id, employee, { new: true });
+
+        if (!emp) {
+            return res.status(500).json({
+                success: false,
+                message: "The employee cannot be updated",
+            });
+        }
+
+        res.json({
+            success: true,
+            employee: emp,
+        });
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: "The employee cannot be updated",
+            error: error,
+        });
+    }
+});
+
 module.exports = router;
