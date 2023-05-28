@@ -114,4 +114,43 @@ router.put("/:id", async (req, res, next) => {
     }
 });
 
+router.delete("/:id", (req, res) => {
+    Employee.findByIdAndRemove(req.params.id)
+        .then((employee) => {
+            if (employee) {
+                return res.status(200).json({
+                    success: true,
+                    message: "The employee is deleted!",
+                });
+            } else {
+                return res.status(404).json({
+                    success: false,
+                    message: "Employee not Found",
+                });
+            }
+        })
+        .catch((error) => {
+            return res.status(500).json({
+                success: false,
+                error: error,
+            });
+        });
+});
+
+router.get("/get/count", async (req, res) => {
+    const employeeCount = await Employee.count({});
+
+    if (!employeeCount) {
+        return res.status(500).json({
+            success: false,
+            message: "No employee existed",
+        });
+    }
+
+    res.json({
+        success: true,
+        employeeCount: employeeCount,
+    });
+});
+
 module.exports = router;
