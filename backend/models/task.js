@@ -6,9 +6,9 @@ const TaskSchema = new Schema(
         taskName: { type: String, required: true },
         projectName: { type: String, required: true },
         description: String,
-        assignedTo: { type: Date, required: true },
-        priority: { type: String, default: "Staff" },
-        status: { type: String, default: "Progress" },
+        assignedTo: { type: String, required: true },
+        priority: { type: String, default: "Normal" },
+        status: { type: String, default: "Holding" },
     },
     { timestamps: true }
 );
