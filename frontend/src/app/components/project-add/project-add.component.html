@@ -1,1 +1,155 @@
-<p>project-add works!</p>
+<div id="projectAdd">
+  <form #projectAddForm="ngForm">
+    <ng-template #content let-c="close" let-d="dismiss">
+      <div class="modal-header">
+        <h4 class="modal-title">Add New Project</h4>
+        <button
+          type="button"
+          class="close"
+          aria-label="Close"
+          (click)="d('Cross click')"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-message></app-message>
+        <div *ngIf="saving" class="m-auto">
+          <h1 class="text-center display-3 mt-5">
+            <i class="fas fa-spinner fa-spin"></i>
+          </h1>
+        </div>
+        <div>
+          <div class="form-group">
+            <label for="name">Name: </label>
+            <input
+              [(ngModel)]="project.name"
+              type="text"
+              class="form-control"
+              name="name"
+              id="name"
+              aria-describedby="nameHid"
+              placeholder="Name"
+            />
+            <small id="nameHid" class="form-text text-muted"
+              >Name is required</small
+            >
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="teamSize">Team Size: </label>
+          <input
+            [(ngModel)]="project.teamSize"
+            type="number"
+            class="form-control"
+            name="teamSize"
+            id="teamSize"
+            aria-describedby="teamSizeHid"
+            placeholder="Team Size"
+          />
+          <small id="teamSizeHid" class="form-text text-muted"
+            >Team size is required</small
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="budget">Budget: </label>
+          <input
+            [(ngModel)]="project.budget"
+            type="number"
+            class="form-control"
+            name="budget"
+            id="budget"
+            aria-describedby="budgetHid"
+            placeholder="Budget"
+          />
+          <small id="budgetHid" class="form-text text-muted"
+            >Budget is required</small
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="expense">Expense: </label>
+          <input
+            [(ngModel)]="project.expense"
+            type="number"
+            class="form-control"
+            name="expense"
+            id="expense"
+            aria-describedby="expenseHid"
+            placeholder="Expense"
+          />
+          <small id="expenseHid" class="form-text text-muted"
+            >Expense is required</small
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="startDate">Start Date: </label>
+          <input
+            [(ngModel)]="project.startDate"
+            type="date"
+            class="form-control"
+            name="startDate"
+            id="startDate"
+            aria-describedby="startDateHid"
+            placeholder="Start Date"
+          />
+          <small id="startDateHid" class="form-text text-muted"
+            >Start date is required</small
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="endDate">End Date: </label>
+          <input
+            [(ngModel)]="project.endDate"
+            type="date"
+            class="form-control"
+            name="endDate"
+            id="endDate"
+            aria-describedby="endDateHid"
+            placeholder="End Date"
+          />
+          <small id="endDateHid" class="form-text text-muted"
+            >End date is required</small
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="status">Status: </label>
+          <select
+            class="form-control"
+            [(ngModel)]="project.status"
+            name="status"
+            id="status"
+          >
+            <option>Kickoff</option>
+            <option>Developing</option>
+            <option>Delivery</option>
+            <option>Closed</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-primary" (click)="save()">
+          Save
+        </button>
+        <button
+          type="button"
+          class="btn btn-secondary"
+          (click)="c('Close click')"
+        >
+          Close
+        </button>
+      </div>
+    </ng-template>
+    <button
+      class="btn btn-outline-primary float-right m-3"
+      (click)="open(content)"
+    >
+      Add New Project
+    </button>
+  </form>
+</div>

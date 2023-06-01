@@ -62,4 +62,41 @@ router.get("/:id", async (req, res) => {
     });
 });
 
+router.put("/:id", async (req, res, next) => {
+    const projectExist = await Project.findById(req.params.id);
+
+    if (!projectExist) {
+        return res.status(404).json({
+            success: false,
+            message: "The project Not Found",
+        });
+    }
+
+    let project = {
+        name: req.body.name,
+        startDate: req.body.startDate,
+        endDate: req.body.endDate,
+        teamSize: req.body.teamSize,
+        budget: req.body.budget,
+        expense: req.body.expense,
+        status: req.body.status,
+    };
+
+    try {
+        project = await Project.findByIdAndUpdate(req.params.id, project, { new: true });
+
+        res.json({
+            success: true,
+            data: project,
+        });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            success: false,
+            message: "The project cannot be updated",
+            error: error,
+        });
+    }
+});
+
 module.exports = router;

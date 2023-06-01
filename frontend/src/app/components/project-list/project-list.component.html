@@ -11,6 +11,11 @@
           </h1>
         </div>
         <div class="card bg-light" *ngIf="projects">
+          <div>
+            <app-project-add
+              (savingFinished)="finishAndAlert($event)"
+            ></app-project-add>
+          </div>
           <table class="table">
             <thead>
               <tr>
@@ -31,7 +36,14 @@
                 <td>{{ item.endDate | date }}</td>
                 <td>{{ item.budget }}</td>
                 <td>{{ item.expense }}</td>
-                <td>View Edit Delete</td>
+                <td>
+                  View
+                  <app-project-edit
+                    [id]="item._id"
+                    (updateFinished)="finishAndAlert($event)"
+                  ></app-project-edit>
+                  Delete
+                </td>
               </tr>
             </tbody>
           </table>

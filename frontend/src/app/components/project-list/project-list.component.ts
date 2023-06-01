@@ -28,4 +28,10 @@ export class ProjectListComponent implements OnInit {
         this.btnDisabled = false;
       });
   }
+
+  finishAndAlert(message: string) {
+    this.data.success(message);
+
+    this.ngOnInit();
+  }
 }
