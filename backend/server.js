@@ -7,6 +7,8 @@ const cors = require("cors");
 const employeeRoutes = require("./routes/employee");
 const projectRoutes = require("./routes/project");
 const taskRoutes = require("./routes/task");
+const authJwt = require("./helpers/jwt");
+const errorHandler = require("./helpers/error-handler");
 
 const app = express();
 
@@ -24,6 +26,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(morgan("dev"));
 app.use(cors());
 app.options("*", cors());
+app.use(authJwt());
+app.use(errorHandler);
 
 app.use(`${config.API}/accounts`, employeeRoutes);
 app.use(`${config.API}/projects`, projectRoutes);
