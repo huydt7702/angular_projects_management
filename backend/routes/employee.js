@@ -2,6 +2,7 @@ const router = require("express").Router();
 const Employee = require("../models/employee");
 const bcrypt = require("bcryptjs");
 const config = require("../config");
+const jwt = require("jsonwebtoken");
 
 router.post("/", async (req, res, next) => {
     let employee = new Employee();
@@ -33,6 +34,44 @@ router.post("/", async (req, res, next) => {
         return res.status(500).json({
             success: false,
             message: "The employee cannot be created",
+            error: error,
+        });
+    }
+});
+
+router.post("/login", async (req, res, next) => {
+    try {
+        let employee = await Employee.findOne({ email: req.body.email });
+
+        if (!employee) {
+            return res.status(500).json({
+                success: false,
+                message: "The employee not found",
+            });
+        }
+
+        if (employee && bcrypt.compareSync(req.body.password, employee.password)) {
+            const token = jwt.sign(
+                {
+                    employeeId: employee._id,
+                },
+                config.SECRET,
+                { expiresIn: "1d" }
+            );
+
+            res.status(200).json({
+                success: true,
+                token: token,
+            });
+        } else {
+            return res.status(400).json({
+                success: false,
+                message: "Password is wrong",
+            });
+        }
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
             error: error,
         });
     }
