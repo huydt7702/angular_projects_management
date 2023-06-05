@@ -192,4 +192,28 @@ router.get("/get/count", async (req, res) => {
     });
 });
 
+router.get("/get/profile", async (req, res) => {
+    try {
+        const employee = await Employee.findById(req.user.employeeId).select("-password");
+
+        if (!employee) {
+            return res.status(500).json({
+                success: false,
+                message: "The employee not found",
+            });
+        }
+
+        res.json({
+            success: true,
+            employee: employee,
+        });
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: "The employee cannot be retrieved",
+            error: error,
+        });
+    }
+});
+
 module.exports = router;

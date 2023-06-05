@@ -34,11 +34,11 @@ export class LoginComponent implements OnInit {
     if (this.validate()) {
       this.rest
         .post(this.url, this.employee)
-        .then((data) => {
+        .then(async (data) => {
           let value = data as { employeeId: string; token: string };
 
           localStorage.setItem('token', value.token);
-          // await this.data.getProfile();
+          await this.data.getProfile();
           this.router.navigate(['/']);
         })
         .catch((error) => {

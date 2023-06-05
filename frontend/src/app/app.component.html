@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark menu">
+<nav class="navbar navbar-expand-lg navbar-light bg-light menu">
   <a class="navbar-brand" href="#">E-project MS</a>
   <button
     class="navbar-toggler d-lg-none"
@@ -19,27 +19,22 @@
           <span class="sr-only">(current)</span></a
         >
       </li>
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="data.employee">
         <a class="nav-link" [routerLink]="['/employee-list']"
           ><i class="fas fa-user"></i> Manage Employees</a
         >
       </li>
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/employee-add']"
-          ><i class="fas fa-user"></i> Add Employees</a
-        >
-      </li>
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="data.employee">
         <a class="nav-link" [routerLink]="['/project-list']"
           ><i class="fas fa-project-diagram"></i> Manage Project</a
         >
       </li>
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="data.employee">
         <a class="nav-link" href="#"
           ><i class="fas fa-tasks"></i> Manage Task</a
         >
       </li>
-      <li class="nav-item dropdown">
+      <li class="nav-item dropdown" *ngIf="data.employee">
         <a
           class="nav-link dropdown-toggle"
           href="#"
@@ -54,13 +49,16 @@
           <a class="dropdown-item" href="#">View Profile</a>
         </div>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="!data.employee">
         <a class="nav-link" [routerLink]="['/login']">Login</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Logout</a>
+      <li class="nav-item" *ngIf="data.employee">
+        <a class="nav-link" (click)="logout()">Logout</a>
       </li>
     </ul>
+    <div class="lead" *ngIf="data.employee">
+      {{ data.employee.name }}
+    </div>
     <form class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="text" placeholder="Search" />
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">

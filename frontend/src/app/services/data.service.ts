@@ -10,7 +10,7 @@ export class DataService {
   message = '';
   messageType = 'danger';
 
-  employee!: Employee;
+  employee!: Employee | null;
 
   constructor(private router: Router, private rest: RestApiService) {
     this.router.events.subscribe((event) => {
@@ -18,6 +18,19 @@ export class DataService {
         this.message = '';
       }
     });
+  }
+
+  async getProfile() {
+    try {
+      if (localStorage.getItem('token')) {
+        const data = await this.rest.get(
+          'http://localhost:4040/v1/api/accounts/get/profile'
+        );
+        this.employee = (data as { employee: Employee }).employee;
+      }
+    } catch (error) {
+      this.error('Error');
+    }
   }
 
   error(message: string) {
