@@ -16,6 +16,7 @@ import { EmployeeEditComponent } from './components/employee-edit/employee-edit.
 import { ProjectAddComponent } from './components/project-add/project-add.component';
 import { ProjectEditComponent } from './components/project-edit/project-edit.component';
 import { ProjectListComponent } from './components/project-list/project-list.component';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { ProjectListComponent } from './components/project-list/project-list.com
     ProjectAddComponent,
     ProjectEditComponent,
     ProjectListComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
