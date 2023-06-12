@@ -78,10 +78,10 @@
                       />
                     </svg>
                   </div>
-                  <app-project-edit
+                  <app-task-edit
                     [id]="item._id"
                     (updateFinished)="finishAndAlert($event)"
-                  ></app-project-edit>
+                  ></app-task-edit>
                   <div
                     class="text-red-600 cursor-pointer w-6 mr-2 transform hover:text-purple-500 hover:scale-110"
                     (click)="

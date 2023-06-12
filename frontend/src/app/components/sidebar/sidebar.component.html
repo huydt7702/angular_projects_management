@@ -230,13 +230,13 @@
     class="absolute bottom-[20px] left-[20px] right-[20px] d-flex items-center gap-[12px] p-[14px] bg-[#363a4a] rounded-[10px] hover:no-underline"
   >
     <img
-      src="https://nld.mediacdn.vn/2019/10/19/1571405322-201910180-iu-15714805252122044141800.jpg"
+      src="{{ data.employee.image }}"
       alt="Avatar"
       class="w-[40px] h-[40px] object-cover rounded-full"
     />
-    <div class="text-white" *ngIf="data.employee">
+    <div class="text-white">
       <h3 class="font-medium">{{ data.employee.name }}</h3>
-      <p class="font-light">@leejieun</p>
+      <p class="font-light">{{ data.employee.email }}</p>
     </div>
   </a>
 </nav>
