@@ -9,14 +9,4 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
   title = 'frontend';
-
-  constructor(public data: DataService, private router: Router) {
-    this.data.getProfile();
-  }
-
-  logout() {
-    this.data.employee = null;
-    localStorage.clear();
-    this.router.navigate(['login']);
-  }
 }

@@ -4,11 +4,11 @@ import { DataService } from 'src/app/services/data.service';
 import { RestApiService } from 'src/app/services/rest-api.service';
 
 @Component({
-  selector: 'app-employee-list',
-  templateUrl: './employee-list.component.html',
-  styleUrls: ['./employee-list.component.css'],
+  selector: 'app-employee-page',
+  templateUrl: './employee-page.component.html',
+  styleUrls: ['./employee-page.component.css'],
 })
-export class EmployeeListComponent implements OnInit {
+export class EmployeePageComponent implements OnInit {
   employees!: Employee[];
   btnDisabled = false;
   url = 'http://localhost:4040/v1/api/accounts';

@@ -5,11 +5,11 @@ import { DataService } from 'src/app/services/data.service';
 import { RestApiService } from 'src/app/services/rest-api.service';
 
 @Component({
-  selector: 'app-project-list',
-  templateUrl: './project-list.component.html',
-  styleUrls: ['./project-list.component.css'],
+  selector: 'app-project-page',
+  templateUrl: './project-page.component.html',
+  styleUrls: ['./project-page.component.css'],
 })
-export class ProjectListComponent implements OnInit {
+export class ProjectPageComponent implements OnInit {
   projects!: Project[];
   btnDisabled = false;
   url = 'http://localhost:4040/v1/api/projects';

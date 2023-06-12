@@ -1,0 +1,10 @@
+.default-layout-wrapper {
+  display: flex;
+}
+
+.content-wrapper {
+  flex: 1;
+  margin: 10px;
+  border-radius: 16px;
+  background-color: #131328;
+}

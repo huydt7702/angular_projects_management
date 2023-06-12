@@ -1,15 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Employee } from 'src/app/models/employee';
 import { DataService } from 'src/app/services/data.service';
 import { RestApiService } from 'src/app/services/rest-api.service';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
+  selector: 'app-login-page',
+  templateUrl: './login-page.component.html',
+  styleUrls: ['./login-page.component.css'],
 })
-export class LoginComponent implements OnInit {
+export class LoginPageComponent {
   employee: Employee;
   btnDisabled = false;
   url = 'http://localhost:4040/v1/api/accounts/login';
@@ -21,8 +21,6 @@ export class LoginComponent implements OnInit {
   ) {
     this.employee = new Employee();
   }
-
-  ngOnInit() {}
 
   validate() {
     return true;
