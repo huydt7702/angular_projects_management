@@ -21,6 +21,8 @@ import { EmployeePageComponent } from './pages/employee-page/employee-page.compo
 import { ProjectPageComponent } from './pages/project-page/project-page.component';
 import { TaskPageComponent } from './pages/task-page/task-page.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
+import { TaskAddComponent } from './components/task-add/task-add.component';
+import { TaskEditComponent } from './components/task-edit/task-edit.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +40,8 @@ import { HomePageComponent } from './pages/home-page/home-page.component';
     ProjectPageComponent,
     TaskPageComponent,
     HomePageComponent,
+    TaskAddComponent,
+    TaskEditComponent,
   ],
   imports: [
     BrowserModule,

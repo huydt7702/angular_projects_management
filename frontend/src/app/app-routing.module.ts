@@ -8,6 +8,7 @@ import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { EmployeePageComponent } from './pages/employee-page/employee-page.component';
 import { ProjectPageComponent } from './pages/project-page/project-page.component';
+import { TaskPageComponent } from './pages/task-page/task-page.component';
 
 const routes: Routes = [
   {
@@ -19,6 +20,7 @@ const routes: Routes = [
       { path: 'employee-add', component: EmployeeAddComponent },
       { path: 'employee-edit/:id', component: EmployeeEditComponent },
       { path: 'project-list', component: ProjectPageComponent },
+      { path: 'task-list', component: TaskPageComponent },
     ],
   },
   {
