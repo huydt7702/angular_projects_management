@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Employee } from 'src/app/models/employee';
 import { DataService } from 'src/app/services/data.service';
 import { RestApiService } from 'src/app/services/rest-api.service';
@@ -12,8 +13,45 @@ export class EmployeePageComponent implements OnInit {
   employees!: Employee[];
   btnDisabled = false;
   url = 'http://localhost:4040/v1/api/accounts';
+  deletedId!: string;
+  confirmMessage = '';
 
-  constructor(private rest: RestApiService, private data: DataService) {}
+  constructor(
+    private rest: RestApiService,
+    private data: DataService,
+    private modalService: NgbModal
+  ) {}
+
+  confirmDeleteEmployee(
+    confirmDialog: TemplateRef<any>,
+    id: string,
+    name: string
+  ) {
+    this.confirmMessage = `Do you want to delete employee ${name}`;
+    this.deletedId = id;
+    this.modalService
+      .open(confirmDialog, { ariaDescribedBy: 'modal-basic-title' })
+      .result.then(
+        (result) => {
+          this.deletedId = '';
+        },
+        (err) => {}
+      );
+  }
+
+  deleteEmployee() {
+    if (this.deletedId !== '') {
+      this.rest
+        .delete(this.url, this.deletedId)
+        .then((data) => {
+          this.modalService.dismissAll();
+          this.ngOnInit();
+        })
+        .catch((error) => {
+          this.data.error(error['message']);
+        });
+    }
+  }
 
   ngOnInit() {
     this.btnDisabled = true;
@@ -21,6 +59,7 @@ export class EmployeePageComponent implements OnInit {
       .get(this.url)
       .then((data) => {
         this.employees = (data as { employees: Employee[] }).employees;
+        console.log(this.employees);
         this.btnDisabled = false;
       })
       .catch((error) => {
@@ -29,18 +68,9 @@ export class EmployeePageComponent implements OnInit {
       });
   }
 
-  delete(id: string) {
-    this.rest
-      .delete(this.url, id)
-      .then((data) => {
-        this.data.success((data as { message: string }).message);
-        this.btnDisabled = false;
+  finishAndAlert(message: string) {
+    this.data.success(message);
 
-        this.ngOnInit();
-      })
-      .catch((error) => {
-        this.data.error(error['message']);
-        this.btnDisabled = false;
-      });
+    this.ngOnInit();
   }
 }

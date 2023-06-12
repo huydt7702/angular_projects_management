@@ -1,4 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  OnInit,
+  Output,
+  TemplateRef,
+} from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Employee } from 'src/app/models/employee';
 import { DataService } from 'src/app/services/data.service';
 import { RestApiService } from 'src/app/services/rest-api.service';
@@ -9,34 +16,41 @@ import { RestApiService } from 'src/app/services/rest-api.service';
   styleUrls: ['./employee-add.component.css'],
 })
 export class EmployeeAddComponent implements OnInit {
+  saving = false;
   employee: Employee;
-  btnDisabled = false;
   url = 'http://localhost:4040/v1/api/accounts';
 
-  constructor(private rest: RestApiService, private data: DataService) {
+  @Output()
+  savingFinished: EventEmitter<string> = new EventEmitter<string>();
+
+  constructor(
+    private modelService: NgbModal,
+    private rest: RestApiService,
+    private data: DataService
+  ) {
     this.employee = new Employee();
   }
 
   ngOnInit() {}
 
-  validate() {
-    return true;
+  open(content: TemplateRef<any>) {
+    this.modelService.open(content, { ariaDescribedBy: 'modal-basic-title' });
   }
 
   save() {
-    this.btnDisabled = true;
+    this.saving = true;
 
-    if (this.validate()) {
-      this.rest
-        .post(this.url, this.employee)
-        .then((data) => {
-          this.data.success('Employee is saved');
-          this.btnDisabled = false;
-        })
-        .catch((error) => {
-          this.data.error(error['message']);
-          this.btnDisabled = false;
-        });
-    }
+    this.rest
+      .post(this.url, this.employee)
+      .then((data) => {
+        this.saving = false;
+        this.savingFinished.emit('New employee is saved!');
+        this.modelService.dismissAll();
+        this.employee = new Employee();
+      })
+      .catch((error) => {
+        this.saving = false;
+        this.data.error(error['message']);
+      });
   }
 }

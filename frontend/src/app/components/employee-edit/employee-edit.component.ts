@@ -1,5 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  TemplateRef,
+} from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Employee } from 'src/app/models/employee';
 import { DataService } from 'src/app/services/data.service';
 import { RestApiService } from 'src/app/services/rest-api.service';
@@ -10,53 +17,57 @@ import { RestApiService } from 'src/app/services/rest-api.service';
   styleUrls: ['./employee-edit.component.css'],
 })
 export class EmployeeEditComponent implements OnInit {
-  employee!: Employee;
-  btnDisabled = false;
+  doing = false;
+  employee: Employee;
   url = 'http://localhost:4040/v1/api/accounts';
-  id: string;
+
+  @Input('id')
+  editId!: string;
+
+  @Output()
+  updateFinished: EventEmitter<string> = new EventEmitter<string>();
 
   constructor(
+    private modelService: NgbModal,
     private rest: RestApiService,
-    private data: DataService,
-    private route: ActivatedRoute,
-    private router: Router
+    private data: DataService
   ) {
-    this.id = route.snapshot.params['id'];
+    this.employee = new Employee();
   }
 
   ngOnInit() {
-    this.btnDisabled = true;
+    this.doing = true;
     this.rest
-      .getOne(this.url, this.id)
+      .getOne(this.url, this.editId)
       .then((data) => {
+        this.doing = false;
         this.employee = (data as { employee: Employee }).employee;
-        this.btnDisabled = false;
       })
       .catch((error) => {
+        this.doing = false;
         this.data.error(error['message']);
-        this.btnDisabled = false;
       });
   }
 
-  validate() {
-    return true;
+  open(content: TemplateRef<any>) {
+    this.data.message = '';
+    this.modelService.open(content, { ariaDescribedBy: 'modal-basic-title' });
   }
 
   update() {
-    this.btnDisabled = true;
+    this.doing = true;
 
-    if (this.validate()) {
-      this.rest
-        .put(this.url, this.id, this.employee)
-        .then((data) => {
-          this.data.success('Employee is updated');
-          this.btnDisabled = false;
-          this.router.navigate(['/employee-list']);
-        })
-        .catch((error) => {
-          this.data.error(error['message']);
-          this.btnDisabled = false;
-        });
-    }
+    this.rest
+      .put(this.url, this.editId, this.employee)
+      .then((data) => {
+        this.doing = false;
+        this.updateFinished.emit('New employee is updated!');
+        this.modelService.dismissAll();
+        this.employee = new Employee();
+      })
+      .catch((error) => {
+        this.doing = false;
+        this.data.error(error['message']);
+      });
   }
 }
