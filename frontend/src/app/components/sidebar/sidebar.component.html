@@ -1,14 +1,17 @@
 <nav
   class="relative p-[20px] w-[380px] h-screen bg-[#131328] rounded-[26px] border-[10px] border-solid border-transparent bg-clip-padding"
 >
-  <div class="d-flex items-center gap-[10px]">
+  <a
+    [routerLink]="['/']"
+    class="d-flex items-center gap-[10px] hover:no-underline"
+  >
     <img
       class="w-[40px] h-[40px] rounded-full object-cover"
       src="https://pipedream.com/s.v0/app_OrZhL9/logo/orig"
       alt="Logo"
     />
     <h3 class="text-white font-medium text-[18px]">Management</h3>
-  </div>
+  </a>
 
   <div class="relative">
     <svg
