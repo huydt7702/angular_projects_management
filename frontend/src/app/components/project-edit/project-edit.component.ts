@@ -7,6 +7,7 @@ import {
   TemplateRef,
 } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService } from 'ngx-toastr';
 import { Project } from 'src/app/models/project';
 import { DataService } from 'src/app/services/data.service';
 import { RestApiService } from 'src/app/services/rest-api.service';
@@ -30,7 +31,8 @@ export class ProjectEditComponent implements OnInit {
   constructor(
     private modelService: NgbModal,
     private rest: RestApiService,
-    private data: DataService
+    private data: DataService,
+    private toasrt: ToastrService
   ) {
     this.project = new Project();
   }
@@ -62,12 +64,14 @@ export class ProjectEditComponent implements OnInit {
       .then((data) => {
         this.doing = false;
         this.updateFinished.emit('New project is updated!');
+        this.toasrt.success('New project is updated!', 'Success');
         this.modelService.dismissAll();
         this.project = new Project();
       })
       .catch((error) => {
         this.doing = false;
-        this.data.error(error['message']);
+        this.data.error(error['error']);
+        this.toasrt.error(error['error'], 'Error!');
       });
   }
 }

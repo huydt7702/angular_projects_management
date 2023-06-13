@@ -6,6 +6,7 @@ import {
   TemplateRef,
 } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService } from 'ngx-toastr';
 import { Employee } from 'src/app/models/employee';
 import { DataService } from 'src/app/services/data.service';
 import { RestApiService } from 'src/app/services/rest-api.service';
@@ -26,7 +27,8 @@ export class EmployeeAddComponent implements OnInit {
   constructor(
     private modelService: NgbModal,
     private rest: RestApiService,
-    private data: DataService
+    private data: DataService,
+    private toasrt: ToastrService
   ) {
     this.employee = new Employee();
   }
@@ -34,6 +36,7 @@ export class EmployeeAddComponent implements OnInit {
   ngOnInit() {}
 
   open(content: TemplateRef<any>) {
+    this.data.message = '';
     this.modelService.open(content, { ariaDescribedBy: 'modal-basic-title' });
   }
 
@@ -50,7 +53,8 @@ export class EmployeeAddComponent implements OnInit {
       })
       .catch((error) => {
         this.saving = false;
-        this.data.error(error['message']);
+        this.data.error(error['error'].message);
+        this.toasrt.error(error['error'].message, 'Error!');
       });
   }
 }

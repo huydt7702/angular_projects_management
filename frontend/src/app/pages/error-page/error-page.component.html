@@ -1,0 +1,27 @@
+<main
+  class="h-screen w-full flex flex-col justify-center items-center bg-[#131328]"
+>
+  <h1 class="text-[180px] font-extrabold text-white tracking-widest">404</h1>
+  <div class="bg-[#FF6A3D] px-2 text-[20px] rounded rotate-12 absolute">
+    Page Not Found
+  </div>
+  <button class="mt-5">
+    <a
+      class="relative inline-block text-sm font-medium text-[#FF6A3D] group active:text-orange-500 focus:outline-none focus:ring"
+    >
+      <span
+        class="absolute inset-0 transition-transform translate-x-1 translate-y-1 bg-[#FF6A3D] group-hover:translate-y-0 group-hover:translate-x-0"
+      ></span>
+
+      <span
+        class="relative block px-24 py-8 bg-[#1A2238] border border-current"
+      >
+        <a
+          [routerLink]="['/']"
+          class="text-[18px] hover:no-underline hover:text-white"
+          >Go Home</a
+        >
+      </span>
+    </a>
+  </button>
+</main>

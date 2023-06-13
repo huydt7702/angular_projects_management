@@ -1,5 +1,6 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService } from 'ngx-toastr';
 import { Employee } from 'src/app/models/employee';
 import { DataService } from 'src/app/services/data.service';
 import { RestApiService } from 'src/app/services/rest-api.service';
@@ -19,7 +20,8 @@ export class EmployeePageComponent implements OnInit {
   constructor(
     private rest: RestApiService,
     private data: DataService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private toasrt: ToastrService
   ) {}
 
   confirmDeleteEmployee(
@@ -46,9 +48,10 @@ export class EmployeePageComponent implements OnInit {
         .then((data) => {
           this.modalService.dismissAll();
           this.ngOnInit();
+          this.toasrt.success((data as { message: string }).message, 'Success');
         })
         .catch((error) => {
-          this.data.error(error['message']);
+          this.data.error(error['error']);
         });
     }
   }
@@ -62,7 +65,8 @@ export class EmployeePageComponent implements OnInit {
         this.btnDisabled = false;
       })
       .catch((error) => {
-        this.data.error(error['message']);
+        this.data.error(error['error']);
+        this.toasrt.error(error['error'], 'Error!');
         this.btnDisabled = false;
       });
   }

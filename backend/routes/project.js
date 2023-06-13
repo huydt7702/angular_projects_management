@@ -22,7 +22,6 @@ router.post("/", verifyLeader, async (req, res, next) => {
             data: project,
         });
     } catch (error) {
-        console.log(error);
         return res.status(500).json({
             success: false,
             message: "The project cannot be created",

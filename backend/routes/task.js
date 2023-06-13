@@ -88,7 +88,6 @@ router.put("/:id", async (req, res, next) => {
             data: task,
         });
     } catch (error) {
-        console.log(error);
         return res.status(500).json({
             success: false,
             message: "The task cannot be updated",

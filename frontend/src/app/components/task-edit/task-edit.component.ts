@@ -7,6 +7,7 @@ import {
   TemplateRef,
 } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService } from 'ngx-toastr';
 import { Employee } from 'src/app/models/employee';
 import { Project } from 'src/app/models/project';
 import { Task } from 'src/app/models/task';
@@ -34,7 +35,8 @@ export class TaskEditComponent implements OnInit {
   constructor(
     private modelService: NgbModal,
     private rest: RestApiService,
-    public data: DataService
+    public data: DataService,
+    private toasrt: ToastrService
   ) {
     this.task = new Task();
     this.data.getProfile();
@@ -87,12 +89,14 @@ export class TaskEditComponent implements OnInit {
       .then((data) => {
         this.doing = false;
         this.updateFinished.emit('New task is updated!');
+        this.toasrt.success('New task is updated!', 'Success');
         this.modelService.dismissAll();
         this.task = new Task();
       })
       .catch((error) => {
         this.doing = false;
-        this.data.error(error['message']);
+        this.data.error(error['error'].message);
+        this.toasrt.error(error['error'].message, 'Error!');
       });
   }
 }

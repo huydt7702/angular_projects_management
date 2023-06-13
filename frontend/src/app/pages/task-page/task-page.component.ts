@@ -1,5 +1,6 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService } from 'ngx-toastr';
 import { Task } from 'src/app/models/task';
 import { DataService } from 'src/app/services/data.service';
 import { RestApiService } from 'src/app/services/rest-api.service';
@@ -19,7 +20,8 @@ export class TaskPageComponent implements OnInit {
   constructor(
     private rest: RestApiService,
     private data: DataService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private toasrt: ToastrService
   ) {
     this.data.getProfile();
   }
@@ -44,9 +46,11 @@ export class TaskPageComponent implements OnInit {
         .then((data) => {
           this.modalService.dismissAll();
           this.ngOnInit();
+          this.toasrt.success((data as { message: string }).message, 'Success');
         })
         .catch((error) => {
-          this.data.error(error['message']);
+          this.data.error(error['error'].message);
+          this.toasrt.error(error['error'].message, 'Error!');
         });
     }
   }

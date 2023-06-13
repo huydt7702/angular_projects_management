@@ -29,6 +29,7 @@ import { TaskEditComponent } from './components/task-edit/task-edit.component';
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 import { StatisticsPageComponent } from './pages/statistics-page/statistics-page.component';
 import { ToastrModule } from 'ngx-toastr';
+import { ErrorPageComponent } from './pages/error-page/error-page.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { ToastrModule } from 'ngx-toastr';
     TaskEditComponent,
     ProfilePageComponent,
     StatisticsPageComponent,
+    ErrorPageComponent,
   ],
   imports: [
     CommonModule,

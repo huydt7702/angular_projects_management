@@ -6,6 +6,7 @@ import {
   TemplateRef,
 } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService } from 'ngx-toastr';
 import { Project } from 'src/app/models/project';
 import { DataService } from 'src/app/services/data.service';
 import { RestApiService } from 'src/app/services/rest-api.service';
@@ -26,7 +27,8 @@ export class ProjectAddComponent implements OnInit {
   constructor(
     private modelService: NgbModal,
     private rest: RestApiService,
-    private data: DataService
+    private data: DataService,
+    private toasrt: ToastrService
   ) {
     this.project = new Project();
   }
@@ -34,6 +36,7 @@ export class ProjectAddComponent implements OnInit {
   ngOnInit() {}
 
   open(content: TemplateRef<any>) {
+    this.data.message = '';
     this.modelService.open(content, { ariaDescribedBy: 'modal-basic-title' });
   }
 
@@ -45,12 +48,14 @@ export class ProjectAddComponent implements OnInit {
       .then((data) => {
         this.saving = false;
         this.savingFinished.emit('New project is saved!');
+        this.toasrt.success('New project is saved!', 'Success');
         this.modelService.dismissAll();
         this.project = new Project();
       })
       .catch((error) => {
         this.saving = false;
-        this.data.error(error['message']);
+        this.data.error(error['error']);
+        this.toasrt.error(error['error'], 'Error!');
       });
   }
 }

@@ -9,6 +9,7 @@ import { ProjectPageComponent } from './pages/project-page/project-page.componen
 import { TaskPageComponent } from './pages/task-page/task-page.component';
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 import { StatisticsPageComponent } from './pages/statistics-page/statistics-page.component';
+import { ErrorPageComponent } from './pages/error-page/error-page.component';
 
 const routes: Routes = [
   {
@@ -33,6 +34,7 @@ const routes: Routes = [
       },
     ],
   },
+  { path: '**', component: ErrorPageComponent },
 ];
 
 @NgModule({
