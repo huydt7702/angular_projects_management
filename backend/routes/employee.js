@@ -3,8 +3,9 @@ const Employee = require("../models/employee");
 const bcrypt = require("bcryptjs");
 const config = require("../config");
 const jwt = require("jsonwebtoken");
+const { verifyLeader } = require("../controllers/verifyLeader");
 
-router.post("/", async (req, res, next) => {
+router.post("/", verifyLeader, async (req, res, next) => {
     let employee = new Employee();
 
     employee.name = req.body.name;
@@ -54,6 +55,7 @@ router.post("/login", async (req, res, next) => {
             const token = jwt.sign(
                 {
                     employeeId: employee._id,
+                    isLeader: employee.role === "Leader" ? true : false,
                 },
                 config.SECRET,
                 { expiresIn: "1d" }
@@ -77,7 +79,7 @@ router.post("/login", async (req, res, next) => {
     }
 });
 
-router.get("/", async (req, res, next) => {
+router.get("/", verifyLeader, async (req, res, next) => {
     const employeeList = await Employee.find().select("-password");
 
     if (!employeeList) {
@@ -93,7 +95,7 @@ router.get("/", async (req, res, next) => {
     });
 });
 
-router.get("/:id", async (req, res, next) => {
+router.get("/:id", verifyLeader, async (req, res, next) => {
     const employee = await Employee.findById(req.params.id).select("-password");
 
     if (!employee) {
@@ -109,7 +111,7 @@ router.get("/:id", async (req, res, next) => {
     });
 });
 
-router.put("/:id", async (req, res, next) => {
+router.put("/:id", verifyLeader, async (req, res, next) => {
     const employeeExist = await Employee.findById(req.params.id);
 
     if (!employeeExist) {
@@ -153,7 +155,7 @@ router.put("/:id", async (req, res, next) => {
     }
 });
 
-router.delete("/:id", (req, res) => {
+router.delete("/:id", verifyLeader, (req, res) => {
     Employee.findByIdAndRemove(req.params.id)
         .then((employee) => {
             if (employee) {
@@ -176,7 +178,7 @@ router.delete("/:id", (req, res) => {
         });
 });
 
-router.get("/get/count", async (req, res) => {
+router.get("/get/count", verifyLeader, async (req, res) => {
     const employeeCount = await Employee.count({});
 
     if (!employeeCount) {

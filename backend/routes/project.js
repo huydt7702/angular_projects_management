@@ -1,8 +1,9 @@
 const router = require("express").Router();
 const config = require("../config");
 const Project = require("../models/project");
+const { verifyLeader } = require("../controllers/verifyLeader");
 
-router.post("/", async (req, res, next) => {
+router.post("/", verifyLeader, async (req, res, next) => {
     let project = new Project();
 
     project.name = req.body.name;
@@ -62,7 +63,7 @@ router.get("/:id", async (req, res) => {
     });
 });
 
-router.put("/:id", async (req, res, next) => {
+router.put("/:id", verifyLeader, async (req, res, next) => {
     const projectExist = await Project.findById(req.params.id);
 
     if (!projectExist) {
@@ -99,7 +100,7 @@ router.put("/:id", async (req, res, next) => {
     }
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", verifyLeader, async (req, res) => {
     Project.findByIdAndRemove(req.params.id)
         .then((project) => {
             if (project) {
