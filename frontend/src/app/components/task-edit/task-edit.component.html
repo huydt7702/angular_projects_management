@@ -64,7 +64,7 @@
                 required
               />
             </div>
-            <div>
+            <div *ngIf="data.employee?.role === 'Leader'">
               <label
                 for="assignedTo"
                 class="block mb-2 font-medium text-gray-900 text-[16px]"
@@ -76,7 +76,10 @@
                 [(ngModel)]="task.assignedTo"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-[15px] rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
               >
-                <option *ngFor="let employee of employees">
+                <option
+                  *ngFor="let employee of employees"
+                  value="{{ employee._id }}"
+                >
                   {{ employee.name }}
                 </option>
               </select>
@@ -109,6 +112,7 @@
                 [(ngModel)]="task.status"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-[15px] rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
               >
+                <option>Pending</option>
                 <option>Developing</option>
                 <option>Done</option>
               </select>

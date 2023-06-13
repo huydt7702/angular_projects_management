@@ -20,7 +20,9 @@ export class TaskPageComponent implements OnInit {
     private rest: RestApiService,
     private data: DataService,
     private modalService: NgbModal
-  ) {}
+  ) {
+    this.data.getProfile();
+  }
 
   confirmDeleteTask(confirmDialog: TemplateRef<any>, id: string, name: string) {
     this.confirmMessage = `Do you want to delete the task ${name}`;
@@ -54,7 +56,13 @@ export class TaskPageComponent implements OnInit {
     this.rest
       .get(this.url)
       .then((data) => {
-        this.tasks = (data as { data: Task[] }).data;
+        const allTask = (data as { data: Task[] }).data;
+        this.tasks =
+          this.data.employee?.role === 'Leader'
+            ? allTask
+            : allTask.filter(
+                (task) => task.assignedTo === this.data.employee?._id
+              );
         this.btnDisabled = false;
       })
       .catch((error) => {

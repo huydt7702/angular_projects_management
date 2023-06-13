@@ -34,9 +34,10 @@ export class TaskEditComponent implements OnInit {
   constructor(
     private modelService: NgbModal,
     private rest: RestApiService,
-    private data: DataService
+    public data: DataService
   ) {
     this.task = new Task();
+    this.data.getProfile();
   }
 
   ngOnInit() {
@@ -61,14 +62,16 @@ export class TaskEditComponent implements OnInit {
         this.data.error(error['message']);
       });
 
-    this.rest
-      .get('http://localhost:4040/v1/api/accounts')
-      .then((data) => {
-        this.employees = (data as { employees: Employee[] }).employees;
-      })
-      .catch((error) => {
-        this.data.error(error['message']);
-      });
+    if (this.data.employee?.role === 'Leader') {
+      this.rest
+        .get('http://localhost:4040/v1/api/accounts')
+        .then((data) => {
+          this.employees = (data as { employees: Employee[] }).employees;
+        })
+        .catch((error) => {
+          this.data.error(error['message']);
+        });
+    }
   }
 
   open(content: TemplateRef<any>) {

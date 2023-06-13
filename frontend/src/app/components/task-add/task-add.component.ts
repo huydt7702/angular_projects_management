@@ -30,9 +30,10 @@ export class TaskAddComponent implements OnInit {
   constructor(
     private modelService: NgbModal,
     private rest: RestApiService,
-    private data: DataService
+    public data: DataService
   ) {
     this.task = new Task();
+    this.data.getProfile();
   }
 
   ngOnInit() {
@@ -45,14 +46,16 @@ export class TaskAddComponent implements OnInit {
         this.data.error(error['message']);
       });
 
-    this.rest
-      .get('http://localhost:4040/v1/api/accounts')
-      .then((data) => {
-        this.employees = (data as { employees: Employee[] }).employees;
-      })
-      .catch((error) => {
-        this.data.error(error['message']);
-      });
+    if (this.data.employee?.role === 'Leader') {
+      this.rest
+        .get('http://localhost:4040/v1/api/accounts')
+        .then((data) => {
+          this.employees = (data as { employees: Employee[] }).employees;
+        })
+        .catch((error) => {
+          this.data.error(error['message']);
+        });
+    }
   }
 
   open(content: TemplateRef<any>) {
@@ -63,7 +66,7 @@ export class TaskAddComponent implements OnInit {
     this.saving = true;
 
     this.rest
-      .post(this.url, this.task)
+      .post(this.url, { ...this.task, assignedTo: this.data.employee?._id })
       .then((data) => {
         this.saving = false;
         this.savingFinished.emit('New task is saved!');
