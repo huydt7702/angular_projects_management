@@ -59,7 +59,6 @@ export class EmployeePageComponent implements OnInit {
       .get(this.url)
       .then((data) => {
         this.employees = (data as { employees: Employee[] }).employees;
-        console.log(this.employees);
         this.btnDisabled = false;
       })
       .catch((error) => {

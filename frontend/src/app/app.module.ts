@@ -23,6 +23,7 @@ import { TaskPageComponent } from './pages/task-page/task-page.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { TaskAddComponent } from './components/task-add/task-add.component';
 import { TaskEditComponent } from './components/task-edit/task-edit.component';
+import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { TaskEditComponent } from './components/task-edit/task-edit.component';
     HomePageComponent,
     TaskAddComponent,
     TaskEditComponent,
+    ProfilePageComponent,
   ],
   imports: [
     BrowserModule,

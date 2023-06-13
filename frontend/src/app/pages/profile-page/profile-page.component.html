@@ -1,0 +1,101 @@
+<div *ngIf="data.employee" class="flex text-[#333] gap-[20px] m-[20px]">
+  <div class="bg-white flex-1 rounded-2xl p-[20px]">
+    <div class="flex flex-col">
+      <img
+        src="{{ data.employee.image }}"
+        alt="Avatar"
+        class="w-[80px] h-[80px] object-cover rounded-xl"
+      />
+      <div class="">
+        <h3 class="text-[20px] font-semibold text-black my-[10px]">
+          {{ data.employee.name }}
+        </h3>
+        <p class="flex items-center text-[#6b7280] text-[14px]">
+          <span class="text-black mr-[8px] mt-[-2px]">
+            <svg
+              class="w-[16px] h-[16px]"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v3.57A22.952 22.952 0 0110 13a22.95 22.95 0 01-8-1.43V8a2 2 0 012-2h2zm2-1a1 1 0 011-1h2a1 1 0 011 1v1H8V5zm1 5a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1z"
+                clip-rule="evenodd"
+              ></path>
+              <path
+                d="M2 13.692V16a2 2 0 002 2h12a2 2 0 002-2v-2.308A24.974 24.974 0 0110 15c-2.796 0-5.487-.46-8-1.308z"
+              ></path>
+            </svg>
+          </span>
+          Front-end Developer
+        </p>
+        <p class="flex items-center text-[#6b7280] text-[14px]">
+          <span class="text-black mr-[8px] mt-[-2px]">
+            <svg
+              class="w-[16px] h-[16px]"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+                clip-rule="evenodd"
+              ></path>
+            </svg>
+          </span>
+          Ho Chi Minh, VN
+        </p>
+      </div>
+    </div>
+
+    <div class="my-[20px]">
+      <h4 class="text-[#6b7280] text-[14px]">Email address</h4>
+      <p class="text-[14px] text-[#111827]">{{ data.employee.email }}</p>
+    </div>
+
+    <div class="my-[20px]">
+      <h4 class="text-[#6b7280] text-[14px]">Zone</h4>
+      <p class="text-[14px] text-[#111827]">{{ data.employee.zone }}</p>
+    </div>
+
+    <div class="my-[20px]">
+      <h4 class="text-[#6b7280] text-[14px]">Phone</h4>
+      <p class="text-[14px] text-[#111827]">{{ data.employee.phone }}</p>
+    </div>
+  </div>
+
+  <div class="bg-white flex-2 rounded-2xl p-[20px]">
+    <h2 class="font-semibold text-[20px]">General information</h2>
+    <h3 class="mt-[20px] mb-[6px] font-medium text-[18px]">About me</h3>
+    <p class="text-[#6b7280] text-[14px] mb-[40px]">
+      Hi there! I'm <span class="font-semibold">{{ data.employee.name }}</span
+      >. I'm a curious and enthusiastic individual with a passion for learning
+      and connecting with others. I believe in the power of effective
+      communication and continuous self-improvement. I'm excited to explore new
+      opportunities and make a positive impact in the world.
+    </p>
+
+    <div class="grid grid-cols-2 gap-[10px]">
+      <div>
+        <h5 class="font-medium text-[#6b7280] text-[14px]">Status</h5>
+        <p class="text-[14px] text-[#111827] font-medium">
+          {{ data.employee.status }}
+        </p>
+      </div>
+      <div>
+        <h5 class="font-medium text-[#6b7280] text-[14px]">Role</h5>
+        <p class="text-[14px] text-[#111827] font-medium">
+          {{ data.employee.role }}
+        </p>
+      </div>
+      <div>
+        <h5 class="font-medium text-[#6b7280] text-[14px]">Enroll date</h5>
+        <p class="text-[14px] text-[#111827] font-medium">
+          {{ data.employee.enrollDate | date }}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
