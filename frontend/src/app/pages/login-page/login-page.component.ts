@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Employee } from 'src/app/models/employee';
 import { DataService } from 'src/app/services/data.service';
 import { RestApiService } from 'src/app/services/rest-api.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login-page',
@@ -26,7 +27,8 @@ export class LoginPageComponent {
   constructor(
     private rest: RestApiService,
     private data: DataService,
-    private router: Router
+    private router: Router,
+    private toasrt: ToastrService
   ) {
     this.employee = new Employee();
   }
@@ -49,11 +51,13 @@ export class LoginPageComponent {
           let value = data as { employeeId: string; token: string };
 
           localStorage.setItem('token', value.token);
+          this.toasrt.success('Logged in successfully', 'Success');
           await this.data.getProfile();
           this.router.navigate(['/']);
         })
         .catch((error) => {
           this.data.error(error['error'].message);
+          this.toasrt.error('Login failed', 'Error!');
           this.btnDisabled = false;
         });
     }

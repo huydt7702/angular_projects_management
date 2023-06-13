@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
@@ -26,6 +28,7 @@ import { TaskAddComponent } from './components/task-add/task-add.component';
 import { TaskEditComponent } from './components/task-edit/task-edit.component';
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 import { StatisticsPageComponent } from './pages/statistics-page/statistics-page.component';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -49,6 +52,9 @@ import { StatisticsPageComponent } from './pages/statistics-page/statistics-page
     StatisticsPageComponent,
   ],
   imports: [
+    CommonModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
     BrowserModule,
     FormsModule,
     HttpClientModule,
