@@ -18,6 +18,13 @@ router.post("/", verifyLeader, async (req, res, next) => {
     employee.status = req.body.status;
 
     try {
+        if (employee.role === "Leader") {
+            return res.status(500).json({
+                success: false,
+                message: "Can't have 2 leaders",
+            });
+        }
+
         employee = await employee.save();
 
         if (!employee) {
