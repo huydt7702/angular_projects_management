@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
@@ -24,6 +25,7 @@ import { HomePageComponent } from './pages/home-page/home-page.component';
 import { TaskAddComponent } from './components/task-add/task-add.component';
 import { TaskEditComponent } from './components/task-edit/task-edit.component';
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
+import { StatisticsPageComponent } from './pages/statistics-page/statistics-page.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +46,7 @@ import { ProfilePageComponent } from './pages/profile-page/profile-page.componen
     TaskAddComponent,
     TaskEditComponent,
     ProfilePageComponent,
+    StatisticsPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -51,6 +54,7 @@ import { ProfilePageComponent } from './pages/profile-page/profile-page.componen
     HttpClientModule,
     AppRoutingModule,
     NgbModule,
+    ReactiveFormsModule,
   ],
   providers: [RestApiService, DataService],
   bootstrap: [AppComponent],

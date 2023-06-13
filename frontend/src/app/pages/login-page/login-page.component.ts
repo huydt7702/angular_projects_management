@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Employee } from 'src/app/models/employee';
 import { DataService } from 'src/app/services/data.service';
@@ -13,6 +14,14 @@ export class LoginPageComponent {
   employee: Employee;
   btnDisabled = false;
   url = 'http://localhost:4040/v1/api/accounts/login';
+
+  loginForm = new FormGroup({
+    email: new FormControl('', [Validators.required]),
+    password: new FormControl('', [
+      Validators.maxLength(5),
+      Validators.required,
+    ]),
+  });
 
   constructor(
     private rest: RestApiService,
@@ -30,8 +39,12 @@ export class LoginPageComponent {
     this.btnDisabled = true;
 
     if (this.validate()) {
+      const email = this.loginForm.controls.email.value;
+      const password = this.loginForm.controls.password.value;
+      const newEmployee = { email, password };
+
       this.rest
-        .post(this.url, this.employee)
+        .post(this.url, newEmployee)
         .then(async (data) => {
           let value = data as { employeeId: string; token: string };
 
@@ -40,7 +53,7 @@ export class LoginPageComponent {
           this.router.navigate(['/']);
         })
         .catch((error) => {
-          this.data.error(error['error']);
+          this.data.error(error['error'].message);
           this.btnDisabled = false;
         });
     }

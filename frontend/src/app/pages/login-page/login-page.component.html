@@ -8,25 +8,64 @@
     <h1 class="font-semibold text-3xl mt-6 mb-2 text-[#333]">Welcome back</h1>
     <p class="text-[#555] text-2xl mb-10">Please enter your details.</p>
 
-    <app-message></app-message>
+    <app-message class="w-full"></app-message>
     <hr />
-    <form class="flex flex-col items-center gap-4 w-full">
-      <input
-        class="text-[#333] w-full text-2xl p-3 border-[1px] border-solid border-[#999] rounded-md"
-        type="email"
-        [(ngModel)]="employee.email"
-        name="email"
-        id="email"
-        placeholder="Enter your email"
-      />
-      <input
-        class="text-[#333] w-full text-2xl p-3 border-[1px] border-solid border-[#999] rounded-md"
-        type="password"
-        [(ngModel)]="employee.password"
-        name="password"
-        id="password"
-        placeholder="Enter your password"
-      />
+    <form
+      [formGroup]="loginForm"
+      novalidate
+      class="flex flex-col items-center gap-4 w-full"
+    >
+      <div class="w-full">
+        <input
+          class="text-[#333] w-full text-2xl p-3 border-[1px] border-solid border-[#999] rounded-md"
+          type="email"
+          formControlName="email"
+          name="email"
+          id="email"
+          placeholder="Enter your email"
+        />
+        <span
+          class="text-sm text-red-400"
+          *ngIf="
+            !loginForm.controls.email?.valid &&
+            (loginForm.controls.email?.dirty ||
+              loginForm.controls.email?.touched)
+          "
+        >
+          Email is not valid
+        </span>
+      </div>
+      <div class="w-full">
+        <input
+          class="text-[#333] w-full text-2xl p-3 border-[1px] border-solid border-[#999] rounded-md"
+          type="password"
+          formControlName="password"
+          name="password"
+          id="password"
+          placeholder="Enter your password"
+        />
+        <span
+          class="text-sm text-red-400"
+          *ngIf="
+            loginForm.get('password')?.hasError('required') &&
+            (loginForm.get('password')?.touched ||
+              loginForm.get('password')?.dirty)
+          "
+        >
+          Password is not valid
+        </span>
+        <span
+          class="text-red-600"
+          *ngIf="
+            loginForm.get('password')?.hasError('minlength') &&
+            (loginForm.get('password')?.touched ||
+              loginForm.get('password')?.dirty)
+          "
+          class="text-sm text-red-400"
+        >
+          Password minimum 6 characters
+        </span>
+      </div>
       <button
         class="bg-[#333] border-[1px] border-solid border-[#333] text-white w-full p-3 rounded-md text-2xl hover:bg-opacity-90"
         (click)="login()"

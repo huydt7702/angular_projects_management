@@ -8,6 +8,7 @@ import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { ProjectPageComponent } from './pages/project-page/project-page.component';
 import { TaskPageComponent } from './pages/task-page/task-page.component';
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
+import { StatisticsPageComponent } from './pages/statistics-page/statistics-page.component';
 
 const routes: Routes = [
   {
@@ -19,6 +20,7 @@ const routes: Routes = [
       { path: 'project-list', component: ProjectPageComponent },
       { path: 'task-list', component: TaskPageComponent },
       { path: 'profile', component: ProfilePageComponent },
+      { path: 'statistical', component: StatisticsPageComponent },
     ],
   },
   {
