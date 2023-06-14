@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { DataService } from 'src/app/services/data.service';
 
 @Component({
@@ -8,13 +9,18 @@ import { DataService } from 'src/app/services/data.service';
   styleUrls: ['./sidebar.component.css'],
 })
 export class SidebarComponent {
-  constructor(public data: DataService, private router: Router) {
+  constructor(
+    public data: DataService,
+    private router: Router,
+    private toasrt: ToastrService
+  ) {
     this.data.getProfile();
   }
 
   logout() {
     this.data.employee = null;
     localStorage.clear();
+    this.toasrt.success('Logout successfully', 'Success');
     this.router.navigate(['login']);
   }
 }

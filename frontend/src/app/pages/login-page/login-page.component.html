@@ -25,7 +25,7 @@
           placeholder="Enter your email"
         />
         <span
-          class="text-sm text-red-400"
+          class="text-2xl text-red-400"
           *ngIf="
             !loginForm.controls.email?.valid &&
             (loginForm.controls.email?.dirty ||
@@ -45,7 +45,7 @@
           placeholder="Enter your password"
         />
         <span
-          class="text-sm text-red-400"
+          class="text-2xl text-red-400"
           *ngIf="
             loginForm.get('password')?.hasError('required') &&
             (loginForm.get('password')?.touched ||
@@ -61,7 +61,7 @@
             (loginForm.get('password')?.touched ||
               loginForm.get('password')?.dirty)
           "
-          class="text-sm text-red-400"
+          class="text-2xl text-red-400"
         >
           Password minimum 6 characters
         </span>
