@@ -1,1 +1,116 @@
-<p>statistics-page works!</p>
+<div>
+  <h1 class="text-center my-[20px] text-[24px] font-bold">Statistical</h1>
+  <app-message></app-message>
+  <hr />
+  <select
+    class="bg-white text-[#333] rounded-lg p-[6px] m-[20px]"
+    [(ngModel)]="projectId"
+    (change)="handleChangeProject()"
+  >
+    <option *ngFor="let project of projects" [value]="project._id">
+      {{ project.name }}
+    </option>
+  </select>
+
+  <div *ngIf="projectId" class="mb-[40px]">
+    <h2 class="text-center my-[20px] text-[20px] font-bold">
+      Project overview
+    </h2>
+    <div class="grid grid-cols-3 gap-[20px] mx-[20px]">
+      <div
+        class="flex items-center gap-[20px] bg-white rounded-[16px] shadow-lg text-[#333] p-[20px]"
+      >
+        <img
+          src="https://news.files.bbci.co.uk/include/newsspec/34096-cost-of-living-adaptive/assets/app-project-assets/img/index_illustration-mobile.png?v=2"
+          alt="Cost"
+          class="w-[100px] h-[100px] object-cover rounded-[12px]"
+        />
+        <div class="">
+          <h3 class="font-semibold text-[20px] mb-[10px]">Project cost</h3>
+          <p class="font-medium">${{ project.budget }}</p>
+        </div>
+      </div>
+      <div
+        class="flex items-center gap-[20px] bg-white rounded-[16px] shadow-lg text-[#333] p-[20px]"
+      >
+        <img
+          src="https://bizweb.dktcdn.net/thumb/grande/100/421/036/articles/tinh-gia-cost-nguyen-lieu-cach-quan-ly-chi-phi-hieu-qua.jpg?v=1616143414193"
+          alt="Cost"
+          class="w-[100px] h-[100px] object-cover rounded-[12px]"
+        />
+        <div class="">
+          <h3 class="font-semibold text-[20px] mb-[10px]">Currently spent</h3>
+          <p class="font-medium">${{ project.expense }}</p>
+        </div>
+      </div>
+      <div
+        class="flex items-center gap-[20px] bg-white rounded-[16px] shadow-lg text-[#333] p-[20px]"
+      >
+        <img
+          src="https://ps.w.org/cost-of-goods-for-woocommerce/assets/icon-256x256.png?rev=2583813"
+          alt="Cost"
+          class="w-[100px] h-[100px] object-cover rounded-[12px]"
+        />
+        <div class="">
+          <h3 class="font-semibold text-[20px] mb-[10px]">
+            The remaining amount
+          </h3>
+          <p class="font-medium">${{ project.budget - project.expense }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr />
+
+  <div>
+    <h2 class="text-center mt-[60px] mb-[20px] text-[20px] font-bold">
+      Team Summary
+    </h2>
+    <div class="grid grid-cols-3 gap-[20px] mx-[20px]">
+      <div
+        class="flex items-center gap-[20px] bg-white rounded-[16px] shadow-lg text-[#333] p-[20px]"
+      >
+        <img
+          src="https://blog.vantagecircle.com/content/images/2021/01/Employee-Management-Meaning-Importance-Tips-Tools---More.png"
+          alt="Cost"
+          class="w-[100px] h-[100px] object-cover rounded-[12px]"
+        />
+        <div class="">
+          <h3 class="font-semibold text-[20px] mb-[10px]">
+            Number of employees
+          </h3>
+          <p class="font-medium">200</p>
+        </div>
+      </div>
+      <div
+        class="flex items-center gap-[20px] bg-white rounded-[16px] shadow-lg text-[#333] p-[20px]"
+      >
+        <img
+          src="https://cloud4good.com/wp-content/uploads/2014/03/understanding-the-total-cost-of-ownership.jpg"
+          alt="Cost"
+          class="w-[100px] h-[100px] object-cover rounded-[12px]"
+        />
+        <div class="">
+          <h3 class="font-semibold text-[20px] mb-[10px]">
+            Total cost of all projects
+          </h3>
+          <p class="font-medium">$200.000</p>
+        </div>
+      </div>
+      <div
+        class="flex items-center gap-[20px] bg-white rounded-[16px] shadow-lg text-[#333] p-[20px]"
+      >
+        <img
+          src="https://cdn-icons-png.flaticon.com/512/2098/2098402.png"
+          alt="Cost"
+          class="w-[100px] h-[100px] object-cover rounded-[12px]"
+        />
+        <div class="">
+          <h3 class="font-semibold text-[20px] mb-[10px]">Tasks in progress</h3>
+          <p class="font-medium">20</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
