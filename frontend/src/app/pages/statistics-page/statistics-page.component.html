@@ -2,15 +2,18 @@
   <h1 class="text-center my-[20px] text-[24px] font-bold">Statistical</h1>
   <app-message></app-message>
   <hr />
-  <select
-    class="bg-white text-[#333] rounded-lg p-[6px] m-[20px]"
-    [(ngModel)]="projectId"
-    (change)="handleChangeProject()"
-  >
-    <option *ngFor="let project of projects" [value]="project._id">
-      {{ project.name }}
-    </option>
-  </select>
+  <div class="flex items-center">
+    <h3 class="font-medium text-[18px] ml-[20px]">Select project</h3>
+    <select
+      class="bg-white text-[#333] rounded-lg p-[6px] m-[20px]"
+      [(ngModel)]="projectId"
+      (change)="handleChangeProject()"
+    >
+      <option *ngFor="let project of projects" [value]="project._id">
+        {{ project.name }}
+      </option>
+    </select>
+  </div>
 
   <div *ngIf="projectId" class="mb-[40px]">
     <h2 class="text-center my-[20px] text-[20px] font-bold">
@@ -27,7 +30,14 @@
         />
         <div class="">
           <h3 class="font-semibold text-[20px] mb-[10px]">Project cost</h3>
-          <p class="font-medium">${{ project.budget }}</p>
+          <p class="font-medium">
+            {{
+              project.budget.toLocaleString("en-US", {
+                style: "currency",
+                currency: "USD"
+              })
+            }}
+          </p>
         </div>
       </div>
       <div
@@ -40,7 +50,14 @@
         />
         <div class="">
           <h3 class="font-semibold text-[20px] mb-[10px]">Currently spent</h3>
-          <p class="font-medium">${{ project.expense }}</p>
+          <p class="font-medium">
+            {{
+              project.expense.toLocaleString("en-US", {
+                style: "currency",
+                currency: "USD"
+              })
+            }}
+          </p>
         </div>
       </div>
       <div
@@ -55,7 +72,14 @@
           <h3 class="font-semibold text-[20px] mb-[10px]">
             The remaining amount
           </h3>
-          <p class="font-medium">${{ project.budget - project.expense }}</p>
+          <p class="font-medium">
+            {{
+              (project.budget - project.expense).toLocaleString("en-US", {
+                style: "currency",
+                currency: "USD"
+              })
+            }}
+          </p>
         </div>
       </div>
     </div>
@@ -64,7 +88,7 @@
   <hr />
 
   <div>
-    <h2 class="text-center mt-[60px] mb-[20px] text-[20px] font-bold">
+    <h2 class="text-center mt-[20px] mb-[20px] text-[20px] font-bold">
       Team Summary
     </h2>
     <div class="grid grid-cols-3 gap-[20px] mx-[20px]">
@@ -95,7 +119,7 @@
           <h3 class="font-semibold text-[20px] mb-[10px]">
             Total cost of all projects
           </h3>
-          <p class="font-medium">$200.000</p>
+          <p class="font-medium">$200,000.00</p>
         </div>
       </div>
       <div
